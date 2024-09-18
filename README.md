@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/792703d5-36c9-4a78-a06f-8c2c17d8a4ed)![image](https://github.com/user-attachments/assets/18c3fdfe-7d46-40e7-8162-db9eb08015ab)![image](https://github.com/user-attachments/assets/aa77939e-5f34-4bf6-905b-864c1c755e20)![image](https://github.com/user-attachments/assets/6d092ba7-4859-4ac1-829b-07c20a2bb556)
 <img src="https://i.imgur.com/pU5A58S.png)" alt="Microsoft Active Directory Logo"/>
 </p>
 
@@ -286,3 +286,56 @@ Select “Yes, I want to activate this scope now” and click on Next.
 
 So far we have installed Windows Server 2019, installed Guest Additions, configured the VM to be the Domain Controller (DC), set up a DNS Forwarder and configured DHCP. We still need to create users in the DC and set up client machines to use the AD environment.
 
+<h2>User Configuration</h2>
+<h3>Admin domain setup</h3>
+
+Open the Start menu click on “Windows Administrative Tools” and then select Active Directory Users and Computers.
+![image](https://github.com/user-attachments/assets/7c483a52-51e2-45b6-9cd7-c946e79c65e9)
+
+Right-click on the domain name (in my case ad.lab) in the sidebar. Then select New -> User.
+![image](https://github.com/user-attachments/assets/f997e706-be4c-4807-b095-05edbdee6791)
+
+Enter the First Name, Last Name and User logon name for the new user. This user will be the Administrator for the Domain Controller.
+![image](https://github.com/user-attachments/assets/162dd2e9-68d2-4ac1-ae7c-27e13a16a950)
+
+Enter the Password for the user. Uncheck all options leaving “Password never expires”. Click on Next to create the user.
+![image](https://github.com/user-attachments/assets/e814fe31-917e-44cc-b889-e0b8f4f5ebcc)
+
+Expand the dropdown on the domain name from the sidebar. Click on Users. Then double-click on “Domain Admins”.
+![image](https://github.com/user-attachments/assets/edeb82bc-5db6-4726-a76d-c97c6b6a4338)
+
+Go to Members -> Add.
+
+![image](https://github.com/user-attachments/assets/ac2acdbf-8096-43e9-88cf-9e5f77ab938a)
+
+Enter the name of the user and check on Check Names.
+
+![image](https://github.com/user-attachments/assets/099cd208-8e29-496b-809d-eb8c10063ef8)
+
+Click on OK.
+
+![image](https://github.com/user-attachments/assets/263718c4-334c-4777-a935-bf5c4871da6b)
+
+Click on Apply then OK to persist the changes.
+
+![image](https://github.com/user-attachments/assets/739023aa-ee55-424e-a99e-64e37697cae0)
+
+Open the Start menu and then click on the user logo and then select Sign out.
+
+![image](https://github.com/user-attachments/assets/cf00c249-68f4-4c88-902f-de4d78f1c8e8)
+
+From the login screen select “Other user”. Then enter the login name and password that was configured for your domain administrator.
+
+![image](https://github.com/user-attachments/assets/8c89aa2d-7e33-4710-8cf7-b262684bc0a3)
+
+<h2>AD User 1 Setup </h2>
+
+Open the Start menu. Select “Windows Administrative Tools” and then choose Active Directory Users and Computers.
+
+![image](https://github.com/user-attachments/assets/c952b91f-7baf-4616-9322-8e12215d0544)
+
+Right-click on the domain name from the sidebar. Select New -> User.
+
+![image](https://github.com/user-attachments/assets/bfec287f-1064-4c70-9e53-ccf769dd4e5a)
+
+Enter the details for the user.
