@@ -1,31 +1,23 @@
 <p align="center">
-<img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
+<img src="https://i.imgur.com/pU5A58S.png](https://github.com/koktinglee/Active-Directory/blob/main/activedirectory.png)" alt="Microsoft Active Directory Logo"/>
 </p>
 
-<h1>On-premises Active Directory Deployed in the Cloud (Azure)</h1>
-This tutorial outlines the implementation of on-premises Active Directory within Azure Virtual Machines.<br />
+<h1>Set up Active Directory home lab with VMware Workstation</h1>
+For the Active Directory (AD) Lab we are going to configure three VMs. The first VM will be the Domain Controller (DC) of the environment. We will use Windows Server 2022 for this machine. The other two VMs will be the clients that use this environment. For the client VMs, we will use Windows 10 Enterprise.
+
+Microsoft provided Evaluation copies for both of them. Windows Server 2019 has a license of 180 days while Windows 10 Enterprise has a license of 90 days. They should function just fine even after the evaluation period expires. After setting up the lab we will create snapshots for the VMs. The snapshots can also be used to roll back to the start of the evaluation period once it expires.
 
 <h2>Environments and Technologies Used</h2>
 
-- Microsoft Azure (Virtual Machines/Compute)
-- Remote Desktop
-- Active Directory Domain Services
-- PowerShell
+- VMware Workstation Pro
+- Windows 2022 Server
+- Windows 10 Enterprise
+- WIndows 10 Enterprise
 
-<h2>Operating Systems Used </h2>
+<h2>Download Windows Server 2022 ISO file</h2>
+You can search on the Internet and click download 
 
-- Windows Server 2022
-- Windows 10 (21H2)
 
-<h2>High-Level Deployment and Configuration Steps</h2>
-
-- Create Two Virtual Machines
-- Ensure Connectivity between the client and Domain Controller
-- Install Active Directory
-- Create an Admin and Normal User Account in AD
-- Join Client-1 to your domain
-- Setup Remote Desktop for non-administrative users on Client-1
-- Create additional users and attempt to login Client-1 with one of the users
 
 <h2>Deployment and Configuration Steps</h2>
 
