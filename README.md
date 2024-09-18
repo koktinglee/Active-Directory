@@ -1,5 +1,5 @@
-<p align="center">
-<img src="https://i.imgur.com/pU5A58S.png](https://github.com/koktinglee/Active-Directory/blob/main/activedirectory.png)" alt="Microsoft Active Directory Logo"/>
+![image](https://github.com/user-attachments/assets/ad20a776-c332-406b-9074-653fc6a59a9d)![image](https://github.com/user-attachments/assets/f07f9140-c171-41b3-ba00-319d96dd98e3)<p align="center">
+<img src="https://i.imgur.com/pU5A58S.png)" alt="Microsoft Active Directory Logo"/>
 </p>
 
 <h1>Set up Active Directory home lab with VMware Workstation</h1>
@@ -8,6 +8,7 @@ For the Active Directory (AD) Lab we are going to configure three VMs. The first
 Microsoft provided Evaluation copies for both of them. Windows Server 2019 has a license of 180 days while Windows 10 Enterprise has a license of 90 days. They should function just fine even after the evaluation period expires. After setting up the lab we will create snapshots for the VMs. The snapshots can also be used to roll back to the start of the evaluation period once it expires.
 
 <h2>Environments and Technologies Used</h2>
+<img src="https://github.com/koktinglee/Active-Directory/blob/main/activedirectory.png" alt="Microsoft Active Directory Logo"/>
 
 - VMware Workstation Pro
 - Windows 2022 Server
@@ -19,232 +20,269 @@ You can search on the Internet and click download
 
 
 
-<h2>Deployment and Configuration Steps</h2>
+<h2>Creating the VM</h2>
 
-<h3>Create Two Virtual Machines</h3>
+-Open VMware Workstation Pro
 
-<p>
-<img src="https://i.imgur.com/pqp7C8d.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-To start go to portal.azure.com and create a profile or login. Create a subscription name-->Create a resource group-->Create two virtual machines-->Create a domain controller using Windows Server and a client PC using Windows 10 Pro
-</p>
-<br />
+-Choose for Create a New Virtual Machine
 
-<p>
-<img src="https://i.imgur.com/bYr2TgH.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Open remote desktop connection and create two instances for the domain controller and the client.  You will need this to create connectivity between the two in the next step.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/958d7c9c-cbd2-4373-9640-93845e69a3df)
 
-<h3>Ensure Connectivity between the client and Domain Controller</h3>
-<p>
-<img src="https://i.imgur.com/b5AWooQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-In Azure, click on Networking and from there it will open its page.  We can change the private IP address from dynamic to static so the IP address will stay the same for client's DNS to connect to the server.
-</p>
-<br />
+-browse for the Windows Server ISO file
 
-<p>
-<img src="https://i.imgur.com/gQDiGHf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-From the networking screen, click on your Network interface name to open ipconfig from the menu.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/13e864fb-7d3a-480e-8968-fda466ccdce7)
 
-<p>
-<img src="https://i.imgur.com/56btGwo.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Once your NIC settings are open click on IP Configuration-->and the 3 dots for your private IP address at the bottom of the screen.
-</p>
-<br />
+-All the way next until you see this page
 
-<p>
-<img src="https://i.imgur.com/mhUy4vv.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-From the ipconfig1 screen, change the assignment of the private IP address from dynamic to static.  Then click Save.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/3d3ff36e-6b99-40fc-bb30-5061585c20d1)
 
-<p>
-<img src="https://i.imgur.com/JkHLSUC.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Login to the Domain Controller through the Remote Desktop Connection and enable ICMPv4 on the local Windows Firewall.  To do this go to Start-->Windows Administrative Tools-->Windows Defender Firewall with Advanced Security
-</p>
-<br />
+-You can see the VM in the Workstation. Edit the virtual machine and remove the floppy drive (floppy drive will effect the VM OS boot up
 
-<p>
-<img src="https://i.imgur.com/m9W0gaQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-From the Windows Defender menu click on Inbound Rules-->Click on Protocol to ascend the types-->Look for ICMPv4 protocol-->Right Click on echo requests and Enable Rule.  This will now allow the clients DNS server to establish connection with the server.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/23dd7f5e-a103-44af-b9f0-abb5838203ae)
 
-<p>
-<img src="https://i.imgur.com/NuJNMKK.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-To confirm connectivity, Open an instance of your client desktop and open your command prompt-->type ping -t and the private Ip address-->enter.  If a connection has been established between, this command will ping the specified host continuously until stopped. The host is replying so we have an established a successful connection between the client and the host.
-</p>
-<br />
+<h2>OS Installation</h2>
+-Click power on this virtual machine
 
-<h3>Install Active Directory</h3>
-<p>
-<img src="https://i.imgur.com/5JTXYCf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Open an instance of your Domain Controller from the Remote Desktop Connection and open the server manager.  Click on Add roles and features.  The following steps will install Active Directory on this server.
-</p>
-<br />
+-click next
 
-<p>
-<img src="https://i.imgur.com/n8YIEe5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Click Add roles and features and the wizard will open.  Click on next continually until you see your destination server to connect.  Click next a few times again until you see the Select server roles.  Check the radio button Active Directory Domain Services.  On that page, click on Add Features. Click on next through the proceeding pages that installs all of the dependencies and the final install button.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/c6923435-25b6-419f-b1c1-451ccab7a99f)
 
-<p>
-<img src="https://i.imgur.com/gQbW88z.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Once Active Directory is installed the server still needs to be promoted as a domain server. In the upper right hand corner you will see a yellow caution sign next to the flag.  Click on that flag and the drop-down menu will populate and select Promote the server to a domain controller.
-</p>
-<br />
+-click install
 
-<p>
-<img src="https://i.imgur.com/gmSThMt.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-In Deployment Configuration dialog box click on Add a new forest and give your DC a domain name and click on next. 
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/dfdf3fc7-5523-431e-8919-d0e5c5fc3370)
 
-<p>
-<img src="https://i.imgur.com/fmr2l9S.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Create a password for Directory Service Restoration Mode (DSRM)-->Click Next until the domain controller finishes installing.  It will automatically reboot, and you will need to log in with your domain name\username and password as the server has been promoted to a domain controller. 
-</p>
-<br />
+-Select Windows Server 2019 Standalone Evaluation (Desktop Experience) and click on Next.
 
-<h3>Create an Admin and Normal User Account in AD</h3>
-<p>
-<img src="https://i.imgur.com/hR8Wc6x.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Go to your Remote Desktop Connection and log into your domain controller.  In the Server Manager Menu Click on Tools-->Active Directory Users and Computers and it will open its window.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/65d970b1-ac76-4424-98ac-0ee0ad5b1a4a)
 
-<p>
-<img src="https://i.imgur.com/WGcJQ4h.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-In the Active Directory right click on your domain name and move your mouse to hover new-->Organizational Unit and left click to create folders for your AD.  We will create employees, admins, and security groups.
-<p>
+-Accept the agreement and click on Next.
 
-<br />
+![image](https://github.com/user-attachments/assets/ff6c1252-5cfe-416a-be77-bb8c2851f864)
 
-<p>
-<img src="https://i.imgur.com/o5ZdcFp.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-After the Admins and Employees folder has been created.  Create an admin user for the admin folder.  To create a user right click on the _ADMINS folder under your domain-->Hover over New-->Hover to User-->Left click User
+-Select Custom: Install Windows only (Advanced).
 
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/3389e16d-691c-4996-8249-a4df4a36f29a)
 
-<p>
-<img src="https://i.imgur.com/O21m7cr.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Once the user has been created, the account must be added as an admin to that folder.  To add this user as an administrator right click on the name-->Hover to Properties-->Click on Properties-->Click on the Member Of tab-->Double click on Domain Users to open the next window.
-</p>
-<br />
+-Select Disk 0 and click on Next.
 
-<p>
-<img src="https://i.imgur.com/EXKhRiA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Once the group box is populated, type "domains" enter the object names to be selected box-->Click on Check Names to the right-->Select Domain Admins-->Click Ok-->Click on Apply-->Click Ok. This will add your user as a domain admin to your active directory. Log out of the server and log back into the server as the admin.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/3f34bcf3-f43b-4a75-91c0-e360a1c3cf8a)
 
-<h3>Join Client-1 To Your Domain</h3>
-<p>
-<img src="https://i.imgur.com/qLYumOe.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Go to Azure and go to Virtual Machines-->Click on DC-1-->Networking and get the private IP address.  You will need this IP address to connect Client-1's DNS server.
-</p>
-<br />
+-The VM will restart a couple of times during the installation process.
 
-<p>
-<img src="https://i.imgur.com/PxitGw1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-In Microsoft Azure go to virtual machines and select Client-1-->Networking-->Click on the Network interface-->DNS servers-->Select the ratio button in DNS servers from Inherit from network to Custom-->Type in DC-1's private IP address in the bar-->click Save.  Once the settings are saved you will restart Client-1 within the Azure portal and it will flush the DNS cache.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/70d29ea9-5a43-421b-92b0-d3d4a561d79c)
 
-<p>
-<img src="https://i.imgur.com/eTnq9pH.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Log into Client-1 using your login credentials from Microsoft Azure go to Start-->Settings-->About-->Rename this PC (advanced)-->Click on Domain-->Type the name of your domain in the domain box-->Click OK.
-</p>
-<br />
+<h2>OS Setup & Configuration</h2>
 
-<h3>Setup Remote Desktop for non-administrative users on Client-1</h3>
+-Once the installation is complete we will be asked to set the password for the Administrator account. Once set click on Finish. ID: Administrator, PS:Admin123#
 
-<p>
-<img src="https://i.imgur.com/PDKNMqe.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Connect to your remote desktop now as the admin that you created in your _ADMINS folder in your active directory.  Right click on the start menu and click on system properties-->Click on Remote Desktop-->Click Select users that can remotely access this PC-->Type "domain" in the object names box-->Click on Check Names to the right-->Another dialog box will show the groups, select Domain Users-->Click ok
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/e1c03524-632f-4efc-bc42-098fc4198cb4)
 
-<p>
-<img src="https://i.imgur.com/gt1QUvv.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Login to your domain controller (DC-1) as an admin.  Go to your Server Manager-->Tools-->Active Directory Users and Computers to open your AD--Click on Users-->Domain Users--> This will bring you to your domain users policy.  This is where your non-admin users will show up.  *note Group Policy will allow you to assign many users to many systems at once but its not covered in this session.
-</p>
-<br />
+-Use the shortcut Right Ctrl+Delete to access the login screen. Enter the configured password to access the VM.
 
-<br />
-<h3>Create additional users and attempt to login Client-1 with one of the users</h3>
-<p>
-<img src="https://i.imgur.com/AZCCuwI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-**This method will add 10,000 users using programming code in Powershell***
-Log into your remote desktop  Client-1 with your system admin credentials.  Once windows is open type Powershell ISE in your search bar-->Open as an administrator-->Click on the New File icon-->Paste the code-->Click on the Run icon that looks like a green play button and the users will load into the system. We will go back to DC-1 and choose a user, get credentials and log into Client-1 with that users credentials.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/39705f35-c251-44ce-bc4f-8575237fa1bb)
 
-<p>
-<img src="https://i.imgur.com/js2k0Sm.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-In you domain controller go to your Server Manager-->Tools-->Active Directory Users and Computers-->Click on your domain-->Click on _EMPLOYEES folder that was created previously-->Double click on a user and the Properties window will populate-->Click on the Account tab-->type a login name in the box for your user-->Click Ok
-</p>
-<br />
+-Once we log in. Server Manager will automatically open. A popup will also open asking us to try Windows Admin Center. Click on Don't show this message again and then click on X to close the popup.
 
-<p>
-<img src="https://i.imgur.com/emsDREZ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Log into your Remote Desktop Connection using the username and credentials from DC-1.  You would need to use the domain\default username and default password.  Open command prompt and confirm username by typing whoami and type host name to verify the name of computer.
-</p>
-<br />
+![image](https://github.com/user-attachments/assets/c24bf794-9c8e-45e8-a992-2d781a766620)
+
+<h2>Network Configuration</h2>
+
+-From the taskbar right-click on the network icon and select Open Network & Internet settings.
+![image](https://github.com/user-attachments/assets/849afbbc-d3e9-442f-907e-223948deb257)
+
+-Click on “Change adapter options”.
+![image](https://github.com/user-attachments/assets/31228db5-26b9-4975-ac63-ce58e2bce4ee)
+
+-On the Network Connections page, we should see the Ethernet adapter. Right-click on the adapter and select Properties.
+![image](https://github.com/user-attachments/assets/2edbb55e-9419-432d-ab59-d1c99552961f)
+
+-Select Internet Protocol Version 4 (TCP/IPv4) and click on Properties.
+![image](https://github.com/user-attachments/assets/69e6e899-57a0-4b76-a3c7-ed72387e76f4)
+
+-Enter the details as shown below and then click on OK. Click on OK again to close the Ethernet Properties menu.
+
+IP address: 192.168.40.131
+Subnet mask: 255.255.255.0
+Default gateway: 192.168.40.2
+Preferred DNS Server: 192.168.40.131
+
+![image](https://github.com/user-attachments/assets/36abb0aa-c560-4712-b6cb-8ae7a3c4c520)
+
+-In the Settings app click on the Home button (above search bar).
+-Before we can set up the machine to be a Domain Controller let us rename the PC. Select “System”.
+
+![image](https://github.com/user-attachments/assets/49206363-a96d-4b36-8f1e-e17138724c50)
+
+-Click on About on the sidebar and then click on the “Rename this PC” button. Give the PC an easy-to-remember name and then click on Next.
+
+![image](https://github.com/user-attachments/assets/2b48cc70-6935-4919-8bf6-c8c7bd37c564)
+
+Click on “Restart now” for the changes to take effect.
+
+![image](https://github.com/user-attachments/assets/b8a1ab1f-744c-4b6a-ae8d-e5622d29164e)
+
+-Once installation done, you can check the updated hostname in cmd. Open cmd in searh bar and type "hostname"
+
+![image](https://github.com/user-attachments/assets/dd766295-6dee-4ac9-b882-0c3162e9bb99)
+
+<h2>Active Directory & DNS Installation</h2>
+-After login wait for Server Manager to load. Click on the Manage button from the top right corner and select “Add Roles and Features”.
+
+![image](https://github.com/user-attachments/assets/491392a7-fc03-4322-90fe-cecd9a2cad17)
+
+-Click on Next till you reach the Server Roles page.
+![image](https://github.com/user-attachments/assets/8d3f1946-cec0-439d-9b74-3b3dbec94824)
+
+On this page enable “Active Directory Domain Services” and “DNS Server”.
+![image](https://github.com/user-attachments/assets/0ebee882-27cc-4dfb-809e-28cb0549e946)
+
+When you enable a feature the “Add Roles and Features Wizard” will open click on “Add Features” to confirm the selection.
+![image](https://github.com/user-attachments/assets/bdc01663-8e92-438e-ab15-50241ed267c7)
+
+![image](https://github.com/user-attachments/assets/b211e35c-65b2-426a-8301-a8e98d94dd7a)
+
+Once both the features are selected click on Next to proceed with installation.
+![image](https://github.com/user-attachments/assets/61e3c852-03b3-4087-b0a7-c7e5b255f478)
+
+Click Next till you reach the Confirmation page. Here click on Install to start the installation of the selected features.
+![image](https://github.com/user-attachments/assets/a0490935-fec1-4cd7-b381-7ac3aa36f0b6)
+
+![image](https://github.com/user-attachments/assets/f2d5dac9-c381-4483-baeb-6b1235bd2d9d)
+Once the installation is complete click on Close to exit the Wizard.
+
+<h2>Active Directory configuration</h2>
+Click on the Flag icon present in the top right of the toolbar in Server Manager. From the dropdown click on “Promote this server to a domain controller”.
+![image](https://github.com/user-attachments/assets/eead07fb-355f-4b0c-b3af-6769c8a127cf)
+
+The AD Domain Servers Configuration Wizard will open. For deployment operation select Add a new Forest. Give the domain a name. For my setup, I will be using the domain name ad.lab. After selecting the name click on Next.
+![image](https://github.com/user-attachments/assets/bb9c4727-e7cf-4ab0-b229-5244cfc299cd)
+
+On this page enter a password to use for using the AD Restore feature.
+![image](https://github.com/user-attachments/assets/966d8831-289e-4b25-ad60-f500f0fb2f67)
+
+Ignore the warning that is shown and click on Next.
+![image](https://github.com/user-attachments/assets/d2360912-6ac8-42d4-b9f3-7a63194a50a7)
+
+The NetBIOS name should automatically be filled. It will be the first part of the domain name. Click on Next to continue.
+![image](https://github.com/user-attachments/assets/8bba87d5-6e29-4ead-962d-60e91e44a011)
+
+Click on Next.
+![image](https://github.com/user-attachments/assets/bafb2095-24df-4576-867d-dc0cb155dab7)
+
+Click on Next.
+![image](https://github.com/user-attachments/assets/48c5de15-1567-450b-b7f4-68ed09068077)
+
+Click on Install to start the Domain Services setup process.
+![image](https://github.com/user-attachments/assets/cb23409b-2473-4a7f-b7cc-d1bf1babdeea)
+
+Once the install process is complete the machine will need to restart. Click on Close to reboot the system.
+![image](https://github.com/user-attachments/assets/6730203a-15ae-48c2-87dc-2c80d69c49b8)
+
+Once restart, you will notice that the name that is shown on the login page has changed. The first part of the domain name is prepended to the username. This means the machine has successfully been configured as the domain controller. Log in using the Administrator password.
+![image](https://github.com/user-attachments/assets/6fe9ae9e-678a-47f9-88d6-3b6691643fa8)
+
+<h3>DNS Configuration</h3>
+Since we enabled DNS on this machine (Domain Controller). This machine (DC) will act as the DNS server for devices that are connected to the ad.lab environment. For the DNS service to function properly we need to configure a Forwarder. Forwarder is the device to which the DNS queries will be sent when the DC cannot resolve it. In our case, we need to forward the request to pfSense. The DNS service of pfSense will then perform the lookup.
+
+Open the Start menu expand the “Windows Administrative Tools” folder and select DNS.
+![image](https://github.com/user-attachments/assets/ba88f5e8-d6bf-405e-bec7-c487e5723d5b)
+
+In the sidebar select the Domain Controller (in my case DC1) and from the right menu double-click on “Forwarders”.
+![image](https://github.com/user-attachments/assets/15fdb829-c69d-4ca0-86c3-a32c72f246dc)
+
+Go to Forwarders -> Edit
+
+![image](https://github.com/user-attachments/assets/0643cbcd-e6e8-41fc-b0b1-0bfca23c9daf)
+
+This will open the Forwarder configuration page. Enter the IP address of the AD_LAB interface (10.80.80.1) and press Enter.
+
+![image](https://github.com/user-attachments/assets/8a46e860-4bf0-4345-ac7a-fc2031ed3a18)
+
+Once added. Click on OK to confirm the change.
+
+![image](https://github.com/user-attachments/assets/e8301e37-1c43-47c1-8122-e217b8c31b5e)
+
+Click on Apply then OK to save the changes.
+
+![image](https://github.com/user-attachments/assets/0eea9b81-dc27-4d25-9ed6-936a953004d6)
+
+<h3>DHCP Installation</h3>
+
+Since DHCP is disabled on the AD_LAB interface when new devices are added they will not be assigned an IP address. We will enable the DHCP service on the DC. Once set devices that connect to the AD_LAB network will be automatically assigned an IP address by the Domain Controller DHCP server.
+
+Click on Manage from the toolbar in Server Manager. Then choose “Add Roles and Features”.
+
+![image](https://github.com/user-attachments/assets/a15d503f-2929-48a6-a699-45ee6a8ab946)
+
+Keep clicking Next till you reach the “Server Roles” page. Enable “DHCP Server” then click on “Add Features”.
+
+![image](https://github.com/user-attachments/assets/3f9497ff-c02f-432f-96c4-cc431dcbea41)
+
+![image](https://github.com/user-attachments/assets/b55587f0-ba46-40db-ad50-57a8cd360344)
+
+Keep clicking Next till you reach the Confirmation page. Click Install to enable DHCP.
+
+![image](https://github.com/user-attachments/assets/b4f06598-47e5-4a46-97ec-5fe521ec47bb)
+
+After the installation is complete click on the Flag present in the toolbar of Server Manager and click on “Complete DHCP configuration”.
+
+![image](https://github.com/user-attachments/assets/3d6ea7ab-6a10-4bb5-a9da-549a68435c35)
+
+Click on Commit.
+
+![image](https://github.com/user-attachments/assets/8747b1e9-e9b6-4c39-a32a-2214b7e8ce8e)
+
+Click on Close to complete the installation.
+
+![image](https://github.com/user-attachments/assets/f23fe1c0-9188-4970-b029-c751e9710b21)
+
+From the Start menu click on “Windows Administrative Tools” and then choose DHCP.
+
+![image](https://github.com/user-attachments/assets/ce0d377e-dfd1-43df-9893-b81637fdea07)
+
+Expand the DHCP server (in my case dc1.ad.lab) dropdown on the left side of the window.
+
+![image](https://github.com/user-attachments/assets/1b49ef25-b8fa-42d2-9451-5fd4baeeff43)
+
+Right-click on IPv4. Then select “New Scope”. The scope defines the range of IP addresses that can be assigned to devices by the DHCP server.
+
+![image](https://github.com/user-attachments/assets/3fffc986-9432-4af3-88db-af011c679725)
+
+Enter a Name and Description for the new scope.
+
+![image](https://github.com/user-attachments/assets/6fc61c2b-5aab-4e6d-a912-381e36311906)
+
+![image](https://github.com/user-attachments/assets/167dde19-8210-4023-8e36-1604bbc2420e)
+
+You can chose the Start IP address to be 10.80.80.3. I have purposely left the starting IP addresses out of the DHCP scope. In the future if the need arises I can use these IPs for static IP assignment.
+
+We don’t have any Exclusions (static IP assignment). Leave all the options empty and click on Next.
+
+![image](https://github.com/user-attachments/assets/cde2649d-36fe-4c55-8648-96bfe9d5a8db)
+
+Increase the lease time to 365 days and click on Next.
+
+![image](https://github.com/user-attachments/assets/cf2414cc-bfc6-47d5-9939-169a96fd6755)
+
+Select “Yes, I want to configure these options now” and click on Next.
+
+![image](https://github.com/user-attachments/assets/d66ac755-ad37-42ac-90ec-f2a85def6923)
+
+In the IP address field enter the default gateway for the AD_LAB interface (10.80.80.1) and then click on Add. Once added click on Next.
+
+![image](https://github.com/user-attachments/assets/5c3c6855-5056-4752-8c8c-f6f3febfd0ee)
+
+Click on Next.
+
+![image](https://github.com/user-attachments/assets/a629ae84-6898-442e-ad4c-a166feecb183)
+
+We are not configuring a WINS Server for our environment so click on Next.
+
+![image](https://github.com/user-attachments/assets/a567e5e9-dd86-4a36-9296-a8c4cbd0ab7e)
+
+Select “Yes, I want to activate this scope now” and click on Next.
+
+![image](https://github.com/user-attachments/assets/6b518c74-b175-4c4d-9970-295273c6f9ab)
+
+So far we have installed Windows Server 2019, installed Guest Additions, configured the VM to be the Domain Controller (DC), set up a DNS Forwarder and configured DHCP. We still need to create users in the DC and set up client machines to use the AD environment.
+
