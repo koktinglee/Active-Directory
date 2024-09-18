@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/ad20a776-c332-406b-9074-653fc6a59a9d)![image](https://github.com/user-attachments/assets/f07f9140-c171-41b3-ba00-319d96dd98e3)<p align="center">
+
 <img src="https://i.imgur.com/pU5A58S.png)" alt="Microsoft Active Directory Logo"/>
 </p>
 
