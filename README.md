@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/792703d5-36c9-4a78-a06f-8c2c17d8a4ed)![image](https://github.com/user-attachments/assets/18c3fdfe-7d46-40e7-8162-db9eb08015ab)![image](https://github.com/user-attachments/assets/aa77939e-5f34-4bf6-905b-864c1c755e20)![image](https://github.com/user-attachments/assets/6d092ba7-4859-4ac1-829b-07c20a2bb556)
+![image](https://github.com/user-attachments/assets/80c35e0d-e93d-4990-a6a5-4ef46a9967e7)![image](https://github.com/user-attachments/assets/792703d5-36c9-4a78-a06f-8c2c17d8a4ed)![image](https://github.com/user-attachments/assets/18c3fdfe-7d46-40e7-8162-db9eb08015ab)![image](https://github.com/user-attachments/assets/aa77939e-5f34-4bf6-905b-864c1c755e20)![image](https://github.com/user-attachments/assets/6d092ba7-4859-4ac1-829b-07c20a2bb556)
 <img src="https://i.imgur.com/pU5A58S.png)" alt="Microsoft Active Directory Logo"/>
 </p>
 
@@ -339,3 +339,93 @@ Right-click on the domain name from the sidebar. Select New -> User.
 ![image](https://github.com/user-attachments/assets/bfec287f-1064-4c70-9e53-ccf769dd4e5a)
 
 Enter the details for the user.
+
+![image](https://github.com/user-attachments/assets/08888e3f-c335-484c-a71e-4b17daecad8e)
+
+Give the user a password. Check the “User cannot change password” and “Password never expires” options. Click Next to create a user.
+
+![image](https://github.com/user-attachments/assets/56b4f2eb-576c-4f5a-aa1c-a8020c117700)
+
+**Perform the same action for AD user 2
+
+<h2>Windows 10 Enterprise VM1 Setup</h2>
+
+Select Windows 10 Enterprise VM1 from the sidebar then click on Start.
+
+![image](https://github.com/user-attachments/assets/7b6fb862-62f7-44cf-9048-5b0f32b834f9)
+
+Click on Next.
+
+![image](https://github.com/user-attachments/assets/38103a7f-3be1-4792-ab5b-73f42c6051fc)
+
+Click on Install now.
+
+![image](https://github.com/user-attachments/assets/d49a9a91-fed6-4381-b54f-d10952a3dfec)
+
+Accept the agreement and then click on Next.
+
+![image](https://github.com/user-attachments/assets/ef3d0458-d752-4277-b464-6215468096d6)
+
+All the way install until you see this page. Select “Domain join instead”. This will allow us to configure a local account.
+
+![image](https://github.com/user-attachments/assets/d1c1eec0-308d-4eab-a388-d92fc45e01d3)
+
+Enter a username and click on Next.The user created in thie step is the local administrator for this devices
+
+![image](https://github.com/user-attachments/assets/0f2e5002-9c5a-4a7d-b5da-a68355d7e05d)
+
+Enter a password and click on Next.
+
+![image](https://github.com/user-attachments/assets/5f312ea4-35f1-4524-b393-d80919e40e23)
+
+Once on the desktop a prompt to allow internet access should show up click on Yes.
+
+![image](https://github.com/user-attachments/assets/37657004-03b9-4232-8a16-49c66fc3e780)
+
+**We have know successfully created a VM for User 1, now we will proceed to join the user to the domain
+
+<h3>Join Domain</h3>
+Now we can add this device to the AD domain and log in as an AD user.
+
+Click on the Search Bar and search for “This PC”. Right-click on it and select Properties.
+
+![image](https://github.com/user-attachments/assets/85e42f80-bc36-4e46-bc40-c1299b9d698d)
+
+Click on Advanced system settings.
+
+![image](https://github.com/user-attachments/assets/3d7c7355-4785-47e6-b280-02eb8dd2744d)
+
+Select the “Computer Name” tab and click on Change.
+
+![image](https://github.com/user-attachments/assets/3d92e156-2d9d-4326-b3ca-286be8039e14)
+
+In the Computer name field enter a name that can be used to easily identify this VM. In the Member of section select Domain and enter the name of the AD domain (in my case ad.lab). Then click on More.
+
+![image](https://github.com/user-attachments/assets/60b9d33f-a57c-4ab0-a791-2fa83596ac29)
+
+Click on OK.
+
+Now a popup should appear. Enter the login name and password of the Domain Admin and click on OK.
+
+![image](https://github.com/user-attachments/assets/0e83cf22-bb6a-436f-9106-33714b56a0f0
+
+The device will be added to the AD environment. Click on OK.
+
+![image](https://github.com/user-attachments/assets/bf8648f9-59e4-4a84-907f-c902bacff150)
+
+Restart the device
+
+![image](https://github.com/user-attachments/assets/bee111c6-2ea2-439b-af5b-ac077662ff6e)
+
+Once on the login screen. Click on “Other user”. Enter the login name and password of the AD user that will use this device and press Enter.
+
+![image](https://github.com/user-attachments/assets/f94b35a5-4fad-4f56-99ed-2404e67e753c)
+
+Now we are logged into the system as the AD user. To confirm this we can open PowerShell and run whoami.
+
+![image](https://github.com/user-attachments/assets/0e05d5bc-0e38-493c-a7fc-8058460593a2)
+
+**Do the same steps with the VMware user 2!
+
+Reference
+https://blog.davidvarghese.dev/posts/building-home-lab-part-7/
